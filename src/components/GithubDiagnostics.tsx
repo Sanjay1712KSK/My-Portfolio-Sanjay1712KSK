@@ -228,9 +228,9 @@ const GithubDiagnostics: React.FC = () => {
                 }
 
                 const pushEvents: PushEvent[] = eventsData
-                    .filter((e: any) => e.type === 'PushEvent')
+                    .filter((e: { type: string }) => e.type === 'PushEvent')
                     .slice(0, 5)
-                    .map((e: any) => {
+                    .map((e: { repo: { name: string }, payload: { commits?: any[] }, created_at: string }) => {
                         const repoParts = e.repo.name.split('/');
                         const repoName = repoParts.length > 1 ? repoParts[1] : e.repo.name;
                         return {
