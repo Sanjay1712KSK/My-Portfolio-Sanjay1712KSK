@@ -7,6 +7,11 @@
   gap: 2rem;
   position: relative;
   z-index: 10;
+  background: rgba(10, 10, 15, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  min-height: 100vh;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 /* Deep Space Background */
@@ -633,9 +638,9 @@ h3 {
 
 .project-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(138, 43, 226, 0.4);
-  background: rgba(138, 43, 226, 0.02);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 240, 255, 0.5);
+  background: rgba(0, 240, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
 }
 
 .project-title {
@@ -690,9 +695,9 @@ h3 {
 
 .blog-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(0, 240, 255, 0.4);
-  background: rgba(0, 240, 255, 0.02);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 240, 255, 0.5);
+  background: rgba(0, 240, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
 }
 
 .blog-title {
@@ -808,8 +813,8 @@ h3 {
 
 .media-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(138, 43, 226, 0.4);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 240, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
 }
 
 .media-wrapper {
