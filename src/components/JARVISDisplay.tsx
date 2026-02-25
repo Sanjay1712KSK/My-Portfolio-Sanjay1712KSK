@@ -16,7 +16,7 @@ const JARVISDisplay: React.FC = () => {
 
     useEffect(() => {
         // Sequence timing
-        const timers: NodeJS.Timeout[] = [];
+        const timers: ReturnType<typeof setTimeout>[] = [];
 
         // Phase 0 -> 1
         timers.push(setTimeout(() => setBootSequence(1), 800));
@@ -37,7 +37,7 @@ const JARVISDisplay: React.FC = () => {
                     setBootSequence(4);
                 }
             }, typingDelay);
-            timers.push(typeChar as unknown as NodeJS.Timeout);
+            timers.push(typeChar as unknown as ReturnType<typeof setTimeout>);
         }, 2800);
         timers.push(typingTimer);
 
