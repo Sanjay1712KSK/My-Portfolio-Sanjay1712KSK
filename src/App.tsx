@@ -338,29 +338,32 @@ function App() {
         {activeTab === 'home' && (
           <>
             {/* HEADER / HERO SECTION */}
-            <header className="site-header animate-on-scroll hero-compact">
-              <h1 className="name-header">SANJAY KUMAR S</h1>
-              <div className="header-subtitle mono text-muted">
-                <span>AI Systems Engineer</span>
-                <span className="separator">|</span>
-                <span>B.Tech CSE (AI &amp; ML)</span>
-                <span className="separator">|</span>
-                <span>SRM University, Chennai</span>
-                <span className="separator">|</span>
-                <span className="header-cgpa">CGPA: 9.44</span>
+            <header className="site-header animate-on-scroll hero-landscape">
+              <div className="hero-left-col">
+                <h1 className="name-header">SANJAY KUMAR S</h1>
+                <div className="header-subtitle mono text-muted">
+                  <span>AI Systems Engineer</span>
+                  <span className="separator">|</span>
+                  <span>B.Tech CSE (AI &amp; ML)</span>
+                  <span className="separator">|</span>
+                  <span>SRM University, Chennai</span>
+                  <span className="separator">|</span>
+                  <span className="header-cgpa">CGPA: 9.44</span>
+                </div>
+
+                <p className="hero-position-statement mono text-muted" style={{ marginTop: '0.8rem', fontSize: '1.05rem' }}>
+                  Building AI-driven autonomous and simulation-based systems.
+                </p>
+
+                <div className="hero-actions" style={{ marginTop: '1.5rem' }}>
+                  <a href="#projects" className="btn btn-primary">View Selected Work</a>
+                  <button onClick={() => { setActiveTab('blog'); setSelectedArticle(null); window.scrollTo(0, 0); }} className="btn btn-secondary">Read My Blog</button>
+                  <a href="/resume.pdf" download="Sanjay_Kumar_S_Resume.pdf" className="btn btn-secondary">Download Resume</a>
+                </div>
               </div>
-
-              <p className="hero-position-statement mono text-muted" style={{ marginTop: '0.8rem', fontSize: '1.05rem' }}>
-                Building AI-driven autonomous and simulation-based systems.
-              </p>
-
-              <div className="hero-actions" style={{ marginTop: '1.5rem' }}>
-                <a href="#projects" className="btn btn-primary">View Selected Work</a>
-                <button onClick={() => { setActiveTab('blog'); setSelectedArticle(null); window.scrollTo(0, 0); }} className="btn btn-secondary">Read My Blog</button>
-                <a href="/resume.pdf" download="Sanjay_Kumar_S_Resume.pdf" className="btn btn-secondary">Download Resume</a>
+              <div className="hero-right-col">
+                <div className="hero-glow"></div>
               </div>
-
-              <div className="hero-glow"></div>
             </header>
 
             {/* ABOUT SECTION */}
