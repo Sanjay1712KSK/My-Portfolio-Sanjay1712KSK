@@ -38,9 +38,24 @@ function App() {
     const twElements = document.querySelectorAll('.typewriter');
     twElements.forEach(el => twObserver.observe(el));
 
+    // Parallax effect for Deep Space Background
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const stars1 = document.querySelector('.stars') as HTMLElement;
+      const stars2 = document.querySelector('.stars2') as HTMLElement;
+      const stars3 = document.querySelector('.stars3') as HTMLElement;
+
+      if (stars1) stars1.style.transform = `translateY(${scrollY * -0.1}px)`;
+      if (stars2) stars2.style.transform = `translateY(${scrollY * -0.2}px)`;
+      if (stars3) stars3.style.transform = `translateY(${scrollY * -0.3}px)`;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => {
       observer.disconnect();
       twObserver.disconnect();
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
