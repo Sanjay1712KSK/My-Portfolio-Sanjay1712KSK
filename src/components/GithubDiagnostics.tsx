@@ -1,19 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './GithubDiagnostics.css';
 
-interface PushEvent {
-    repo: string;
-    commits: number;
-    timeStr: string;
-}
-
 interface GitHubData {
     repos: number;
     totalContributions: number;
     currentStreak: number;
     longestStreak: number;
-    events: PushEvent[];
-    eventsFailed?: boolean;
     isCached: boolean;
 }
 
@@ -163,28 +155,6 @@ const PulseGraph: React.FC = () => {
     );
 };
 
-const timeSince = (dateStr: string) => {
-    const date = new Date(dateStr);
-    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-
-    let interval = Math.floor(seconds / 31536000);
-    if (interval >= 1) return `${interval} year${interval === 1 ? '' : 's'} ago`;
-
-    interval = Math.floor(seconds / 2592000);
-    if (interval >= 1) return `${interval} month${interval === 1 ? '' : 's'} ago`;
-
-    interval = Math.floor(seconds / 86400);
-    if (interval >= 1) return `${interval} day${interval === 1 ? '' : 's'} ago`;
-
-    interval = Math.floor(seconds / 3600);
-    if (interval >= 1) return `${interval} hour${interval === 1 ? '' : 's'} ago`;
-
-    interval = Math.floor(seconds / 60);
-    if (interval >= 1) return `${interval} minute${interval === 1 ? '' : 's'} ago`;
-
-    return "just now";
-};
-
 const GithubDiagnostics: React.FC = () => {
     const [data, setData] = useState<GitHubData | null>(null);
     const [loading, setLoading] = useState(true);
@@ -232,37 +202,11 @@ const GithubDiagnostics: React.FC = () => {
                     }
                 }
 
-                let pushEvents: PushEvent[] = [];
-                let eventsFailed = false;
-
-                try {
-                    const eventsRes = await fetch(`https://api.github.com/users/${USERNAME}/events/public`);
-                    if (!eventsRes.ok) throw new Error('Events API Error');
-                    const eventsData = await eventsRes.json();
-
-                    pushEvents = eventsData
-                        .filter((e: any) => e.type === 'PushEvent')
-                        .slice(0, 5)
-                        .map((e: any) => {
-                            const repoParts = e.repo.name.split('/');
-                            const repoName = repoParts.length > 1 ? repoParts[1] : e.repo.name;
-                            return {
-                                repo: repoName,
-                                commits: e.payload?.size || 0,
-                                timeStr: timeSince(e.created_at)
-                            };
-                        });
-                } catch (e) {
-                    eventsFailed = true;
-                }
-
                 const calculatedData: Omit<GitHubData, 'isCached'> = {
                     repos: userData.public_repos,
                     totalContributions,
                     currentStreak,
-                    longestStreak,
-                    events: pushEvents,
-                    eventsFailed
+                    longestStreak
                 };
 
                 localStorage.setItem(CACHE_KEY, JSON.stringify(calculatedData));
@@ -310,24 +254,7 @@ const GithubDiagnostics: React.FC = () => {
             {/* PULSE GRAPH */}
             <PulseGraph />
 
-            {/* FEED */}
-            <div className="gh-feed-container">
-                {data.eventsFailed ? (
-                    <div className="gh-feed-item mono" style={{ color: 'var(--text-muted)' }}>Commit activity unavailable.</div>
-                ) : data.events.length === 0 ? (
-                    <div className="gh-feed-item mono" style={{ color: 'var(--text-muted)' }}>No recent push events detected.</div>
-                ) : (
-                    data.events.map((ev, i) => (
-                        <div key={i} className="gh-feed-item mono" style={{ animationDelay: `${i * 0.15}s` }}>
-                            <span className="feed-bracket">[ </span><span className="feed-repo">{ev.repo}</span><span className="feed-bracket"> ]</span>
-                            <span className="feed-dash"> — </span>
-                            <span className="feed-action">pushed {ev.commits} commit{ev.commits !== 1 ? 's' : ''}</span>
-                            <span className="feed-dash hide-mobile"> — </span>
-                            <span className="feed-time">{ev.timeStr}</span>
-                        </div>
-                    ))
-                )}
-            </div>
+
 
             {/* LOWER PANEL */}
             <div className="gh-lower-panel mono">
