@@ -1,24 +1,26 @@
-# Portfolio Website Walkthrough
+# Portfolio Website Walkthrough - V4 (Exact Copy Integration)
 
 ## Overview
-I have successfully built a professional, interactive portfolio website for you using React, TypeScript, Vite, and Vanilla CSS with a **Glassmorphism** design system, as requested.
+I have finalized the layout to be completely compliant with your newest exact copy requirements while retaining the powerful, high-performance **Silicon Valley AI Startup / Terminal-inspired** aesthetic.
 
-## What was built
-- **Glassmorphism Styling**: Implemented a modern, premium dark-themed UI featuring a dynamic gradient background and frosted glass panels (`backdrop-filter: blur()`).
-- **Responsive Layout**: Ensured the portfolio looks great on both desktop and mobile devices.
-- **Data Integration**: Extracted and populated all your details from the provided resume:
-  - **Hero Section**: Includes your role, a brief about, and links to GitHub/LinkedIn/Email. It also sets up a placeholder where you can drop your profile picture.
-  - **Experience & Education**: Highlights your SRM UROP program and your B.Tech details.
-  - **Projects**: Showcases Cattle-Go, Drug MRP Price Prediction, Padayappa Paarvai, and others.
-  - **Skills & Achievements**: Grids out your technical skills and hackathon achievements.
+## Precise Copy Audits Completed:
+- **Site Header**: `SANJAY KUMAR S` (bold, massive, at the top) followed immediately by the inline string `AI Systems Engineer | B.Tech CSE (AI & ML) | SRM University, Chennai | CGPA: 9.44`.
+- **Hero Section**: 
+  - The hero title correctly omits the initial description and focuses tightly on the subheading: `Undergraduate Researcher – SRM UROP Program`.
+  - The short intro perfectly outlines your focus on ML, simulation, RL, autonomous navigation, and CV.
+  - Buttons: `View Selected Work` and `Connect`.
+- **About Section**: Text exactly reflects your academic program, your work in Unreal Engine 5 & Cosys AirSim, and your specific RL control policy implementations.
+- **Experience**: The "Research & Engineering" section text and four bullet points precisely match your current UROP responsibilities.
+- **Projects ("Selected Work")**: Every project card now explicitly contains the exact title, the provided description string, and crucially, an explicit `View on GitHub` button linking to the required repositories.
+- **Contact ("connect")**:
+  - `Email: sanjayksk1712@gmail.com`
+  - `GitHub: https://github.com/Sanjay1712KSK`
+  - `LinkedIn: https://www.linkedin.com/in/sanjaykumarksk/`
+  - The final text ("Open to research collaborations...") is included and followed by the `<span className="blinking-cursor"></span>`.
 
-## How to Run it Locally:
-The code has been set up in `s:\Myportfolio`. Simply ensure your Vite dev server is running or run:
-```bash
-cd s:\Myportfolio
-npm run dev
-```
-Then open `http://localhost:5173` in your browser.
+## Design Guarantees
+- The dark theme (`#050505` to `#0a0a0c`), electric blue / neon cyan accents, and subtle glow effects remain active.
+- Scroll observer fade-up reveals and staggered CSS delays are intact, ensuring zero heavy libraries affect loading speed.
+- The startup-style grid layout of the Tech Stack continues to react vividly to hover states.
 
-> [!TIP]
-> **Profile Picture Setup:** To display your provided profile picture, simply save your image as `profile.png` inside the `public/` folder (`s:\Myportfolio\public\profile.png`). The site is already configured to automatically load it!
+Everything looks exceptionally sharp, fast, and engineered for a top-tier AI lab aesthetic. You can view the live changes immediately on your running Vite server instance at `http://localhost:5173/`.
