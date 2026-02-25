@@ -1,41 +1,64 @@
-# Portfolio Project
+# My Portfolio
 
-## Overview
-This is a professional portfolio project built using Vue.js, Vite, and TypeScript. The portfolio is designed to showcase skills, projects, and experiences in an elegant and responsive manner. It serves as a personal branding tool that highlights my work and capabilities in the software development field.
-
-## Features
-- **Responsive Design:** Optimized for all devices, ensuring a seamless experience for users on desktops, tablets, and mobile.
-- **Dynamic Content:** Easily updateable sections for projects, skills, and testimonials.
-- **Interactive UI:** Engaging user interfaces with Vue components that enhance UX.
-- **Smooth Navigation:** Intuitive site structure with fast navigation between sections.
+Personal portfolio web app for **Sanjay Kumar S**, focused on AI systems, reinforcement learning, and simulation-based engineering work.
 
 ## Tech Stack
-- **Frontend Framework:** Vue.js
-- **Build Tool:** Vite
-- **Programming Language:** TypeScript
-- **Styling:** [Your chosen CSS framework, e.g., Tailwind CSS, Bootstrap, etc.]
+- React
+- TypeScript
+- Vite
+- CSS (custom styling and animations)
 
-## Installation Instructions
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Sanjay1712KSK/My-Portfolio-Sanjay1712KSK.git
-   ```
-2. Navigate into the project directory:
-   ```bash
-   cd My-Portfolio-Sanjay1712KSK
-   ```
-3. Install the dependencies:
+## What This Portfolio Includes
+- Tab-based navigation: `home`, `blog`, `project_demo_medias`, `resume_viewer`
+- Hero + About + Experience + Technical Focus sections
+- Selected projects with GitHub links
+- Blog article cards with in-app article view
+- Demo media gallery (video/image cards)
+- Resume viewer with open/download actions
+- Contact section (email, GitHub, LinkedIn)
+- Animated deep-space background, scroll reveal, and typewriter effects
+
+## Run Locally
+1. Install dependencies:
    ```bash
    npm install
    ```
-4. Start the development server:
+2. Start development server:
    ```bash
    npm run dev
    ```
+3. Open the local URL shown in terminal (Vite default is usually `http://localhost:5173`).
 
-## Usage
-To view the portfolio, open your browser and visit `http://localhost:3000`. You can navigate through various sections to view different projects and skills. This portfolio can be customized further by editing the content in the `src` directory.
+## Build for Production
+```bash
+npm run build
+```
 
----
+## Preview Production Build
+```bash
+npm run preview
+```
 
-For feedback or contributions, please reach out via my social media links included in the site.
+## Lint
+```bash
+npm run lint
+```
+
+## Project Structure
+```text
+src/
+  App.tsx         # Main portfolio UI and section content
+  App.css         # Component-level styles
+  index.css       # Global styles, theme variables, animations
+  main.tsx        # React entry point
+public/
+  vite.svg
+```
+
+## Notes
+- Resume links currently point to `/resume.pdf`. Add `public/resume.pdf` if you want the resume viewer/download buttons to work in deployment.
+
+## Contact
+- Email: `sanjayksk1712@gmail.com`
+- GitHub: `https://github.com/Sanjay1712KSK`
+- LinkedIn: `https://www.linkedin.com/in/sanjaykumarksk/`
