@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import JARVISDisplay from './components/JARVISDisplay';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'home' | 'media' | 'resume' | 'blog'>('home');
@@ -599,6 +600,10 @@ function App() {
             <h2 className="section-title mono">
               <span className="typewriter-container"><span className="typewriter">Project Demo Media's</span></span>
             </h2>
+
+            <div style={{ marginBottom: '3rem', width: '100%', maxWidth: '800px', margin: '0 auto 3rem auto' }}>
+              <JARVISDisplay />
+            </div>
 
             <div className="media-grid">
               {mediaDemos.map((media, idx) => (
