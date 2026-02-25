@@ -236,39 +236,82 @@ function App() {
       summary: "Step-by-step guide to setting up Microsoft AirSim with Unreal Engine 5 on Windows 11, including common build errors and simulation control issues.",
       content: (
         <>
-          <p className="blog-paragraph text-muted">Integrating AirSim with Unreal Engine 5 for reinforcement learning simulations involves careful configuration of Visual Studio, Unreal build tools, and plugin compatibility. This article outlines the setup process and key troubleshooting insights.</p>
+          <h3 className="blog-subtitle">Introduction</h3>
+          <p className="blog-paragraph text-muted">Integrating Microsoft AirSim with Unreal Engine 5 on Windows 11 is a powerful setup for reinforcement learning and autonomous systems research. However, the integration process involves multiple toolchains and strict version compatibility.</p>
+          <p className="blog-paragraph text-muted">This article outlines the setup process and the major build and configuration challenges I encountered.</p>
 
-          <h3 className="blog-subtitle">Setup Overview:</h3>
+          <h3 className="blog-subtitle">System Overview</h3>
           <ul className="blog-list text-muted">
-            <li>Installing Unreal Engine 5</li>
-            <li>Installing Visual Studio with required C++ build tools</li>
-            <li>Cloning AirSim repository</li>
-            <li>Building AirSim using build scripts</li>
-            <li>Integrating AirSim plugin into Unreal project</li>
-            <li>Configuring settings.json for simulation control</li>
+            <li><strong>OS:</strong> Windows 11</li>
+            <li><strong>Engine:</strong> Unreal Engine 5</li>
+            <li><strong>Simulator:</strong> Microsoft AirSim</li>
+            <li><strong>Development:</strong> Visual Studio (C++ toolchain)</li>
           </ul>
 
-          <h3 className="blog-subtitle">Difficulties Faced:</h3>
+          <h3 className="blog-subtitle">Step 1: Installing Unreal Engine 5</h3>
           <ul className="blog-list text-muted">
-            <li>Visual Studio toolchain mismatch</li>
-            <li>Unreal build errors during plugin compilation</li>
-            <li>Incorrect AirSim settings configuration</li>
-            <li>Drone spawning but no manual control</li>
-            <li>Physics inconsistencies during simulation</li>
-            <li>Plugin not loading due to directory structure errors</li>
+            <li>Installed via Epic Games Launcher.</li>
+            <li>Created a blank C++ project.</li>
           </ul>
 
-          <h3 className="blog-subtitle">Solutions Implemented:</h3>
+          <h3 className="blog-subtitle">Step 2: Installing Visual Studio</h3>
+          <p className="blog-paragraph text-muted">Installed required components:</p>
           <ul className="blog-list text-muted">
-            <li>Ensuring correct MSVC and Windows SDK version</li>
-            <li>Rebuilding Unreal project files</li>
-            <li>Verifying AirSim plugin placement</li>
-            <li>Correct input bindings configuration</li>
-            <li>Testing with sample environment before custom scene</li>
+            <li>Desktop development with C++</li>
+            <li>MSVC v143 toolset</li>
+            <li>Windows 10/11 SDK</li>
+          </ul>
+          <p className="blog-paragraph text-muted"><strong>Issue Faced:</strong> Build errors due to incorrect SDK version.</p>
+          <p className="blog-paragraph text-muted"><strong>Resolution:</strong> Installed exact SDK version required by Unreal Engine build configuration.</p>
+
+          <h3 className="blog-subtitle">Step 3: Cloning and Building AirSim</h3>
+          <p className="blog-paragraph text-muted">Cloned AirSim repository and executed build script:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>build.cmd</code></pre>
+          <p className="blog-paragraph text-muted">Build succeeded after resolving dependency paths.</p>
+
+          <h3 className="blog-subtitle">Step 4: Integrating AirSim Plugin</h3>
+          <ul className="blog-list text-muted">
+            <li>Copied AirSim plugin folder into Unreal project's Plugins directory.</li>
+            <li>Regenerated project files.</li>
+            <li>Built solution from Visual Studio.</li>
           </ul>
 
-          <h3 className="blog-subtitle">Conclusion:</h3>
-          <p className="blog-paragraph text-muted">Simulation environments require strict toolchain alignment and proper plugin configuration. Testing in incremental stages prevents cascading build errors.</p>
+          <h3 className="blog-subtitle">Major Issues Faced</h3>
+
+          <h4 className="blog-subtitle" style={{ fontSize: '1.2rem', marginTop: '1.5rem', marginBottom: '0.8rem' }}>1. Plugin Compilation Errors</h4>
+          <p className="blog-paragraph text-muted" style={{ marginBottom: '0.5rem' }}><strong>Cause:</strong> Toolchain mismatch</p>
+          <p className="blog-paragraph text-muted"><strong>Fix:</strong> Verified MSVC version and rebuilt project files</p>
+
+          <h4 className="blog-subtitle" style={{ fontSize: '1.2rem', marginTop: '1.5rem', marginBottom: '0.8rem' }}>2. Drone Spawning But No Manual Control</h4>
+          <p className="blog-paragraph text-muted" style={{ marginBottom: '0.5rem' }}><strong>Cause:</strong> Incorrect input bindings and missing configuration in settings.json</p>
+          <p className="blog-paragraph text-muted"><strong>Fix:</strong> Verified input mappings and updated configuration file</p>
+
+          <h4 className="blog-subtitle" style={{ fontSize: '1.2rem', marginTop: '1.5rem', marginBottom: '0.8rem' }}>3. Physics Instability in Simulation</h4>
+          <p className="blog-paragraph text-muted" style={{ marginBottom: '0.5rem' }}><strong>Cause:</strong> Unreal physics settings conflicting with AirSim defaults</p>
+          <p className="blog-paragraph text-muted"><strong>Fix:</strong> Adjusted physics substepping and ensured correct simulation tick rate</p>
+
+          <h4 className="blog-subtitle" style={{ fontSize: '1.2rem', marginTop: '1.5rem', marginBottom: '0.8rem' }}>4. Plugin Not Loading</h4>
+          <p className="blog-paragraph text-muted" style={{ marginBottom: '0.5rem' }}><strong>Cause:</strong> Incorrect folder structure</p>
+          <p className="blog-paragraph text-muted"><strong>Fix:</strong> Ensured AirSim plugin was placed inside:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>ProjectFolder/Plugins/AirSim</code></pre>
+
+          <h3 className="blog-subtitle">Testing and Validation</h3>
+          <p className="blog-paragraph text-muted">Tested using:</p>
+          <ul className="blog-list text-muted">
+            <li>Sample environment</li>
+            <li>API control via Python</li>
+            <li>Manual keyboard control</li>
+          </ul>
+          <p className="blog-paragraph text-muted">Verified drone movement, sensor data, and camera feeds.</p>
+
+          <h3 className="blog-subtitle">Key Takeaways</h3>
+          <ul className="blog-list text-muted">
+            <li>Toolchain alignment is critical (Unreal + Visual Studio + SDK)</li>
+            <li>Always test in sample environment before custom maps</li>
+            <li>Validate plugin placement carefully</li>
+            <li>Troubleshoot incrementally, not all at once</li>
+          </ul>
+          <p className="blog-paragraph text-muted">Simulation-based RL environments demand precise system-level configuration and debugging discipline.</p>
         </>
       )
     }
