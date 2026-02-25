@@ -59,7 +59,7 @@ function App() {
       twObserver.disconnect();
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [activeTab, selectedArticle]);
 
   const experience = [
     {
