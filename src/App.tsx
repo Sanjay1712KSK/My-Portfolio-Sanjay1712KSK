@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'home' | 'media' | 'resume'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'media' | 'resume' | 'blog'>('home');
   const [selectedArticle, setSelectedArticle] = useState<number | null>(null);
 
 
@@ -231,6 +231,12 @@ function App() {
           ./home
         </button>
         <button
+          className={`tab-btn ${activeTab === 'blog' ? 'active' : ''}`}
+          onClick={() => { setActiveTab('blog'); setSelectedArticle(null); }}
+        >
+          ./blog
+        </button>
+        <button
           className={`tab-btn ${activeTab === 'media' ? 'active' : ''}`}
           onClick={() => setActiveTab('media')}
         >
@@ -265,6 +271,7 @@ function App() {
 
             <div className="hero-actions" style={{ marginTop: '1.5rem' }}>
               <a href="#projects" className="btn btn-primary">View Selected Work</a>
+              <button onClick={() => { setActiveTab('blog'); setSelectedArticle(null); window.scrollTo(0, 0); }} className="btn btn-secondary">Read My Blog</button>
               <a href="/resume.pdf" target="_blank" className="btn btn-secondary">Download Resume</a>
             </div>
 
@@ -364,57 +371,6 @@ function App() {
             </div>
           </section>
 
-          {/* BLOG SECTION */}
-          <section className="section" id="blog">
-            <h2 className="section-title mono">
-              <span className="typewriter-container"><span className="typewriter">Blog</span></span>
-            </h2>
-
-            {selectedArticle === null ? (
-              <div className="animate-on-scroll delay-100">
-                <p className="about-text" style={{ marginBottom: '2rem' }}>
-                  Engineering notes and troubleshooting breakdowns from real-world AI system setup and simulation environments.
-                </p>
-                <div className="blog-grid">
-                  {blogs.map((blog, idx) => (
-                    <div key={idx} className={`blog-card animate-on-scroll delay-${(idx % 2 === 0 ? 100 : 200)}`}>
-                      <h3 className="blog-title">{blog.title}</h3>
-                      <p className="blog-summary">{blog.summary}</p>
-                      <div className="blog-meta mono text-muted">
-                        <span>{blog.category}</span>
-                        <span className="separator mx-2">|</span>
-                        <span>{blog.date}</span>
-                      </div>
-                      <div className="blog-action" style={{ marginTop: 'auto', paddingTop: '1.5rem' }}>
-                        <button className="btn btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }} onClick={() => setSelectedArticle(blog.id)}>Read Article</button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="article-view animate-on-scroll">
-                <button className="btn btn-secondary mb-4" onClick={() => setSelectedArticle(null)} style={{ marginBottom: '2rem', padding: '0.5rem 1rem', fontSize: '0.8rem' }}>
-                  &lt; Back to Blog
-                </button>
-
-                {blogs.filter(b => b.id === selectedArticle).map((blog) => (
-                  <div key={blog.id} className="article-content terminal-block-alt">
-                    <h2 className="article-title">{blog.title}</h2>
-                    <div className="blog-meta mono text-muted" style={{ marginBottom: '2.5rem', marginTop: '0.5rem' }}>
-                      <span>{blog.category}</span>
-                      <span className="separator mx-2">|</span>
-                      <span>{blog.date}</span>
-                    </div>
-                    <div className="article-body">
-                      {blog.content}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-
           {/* TECH STACK SECTION */}
           <section className="section" id="tech">
             <h2 className="section-title mono">
@@ -472,6 +428,59 @@ function App() {
             </div>
           </section>
         </>
+      )}
+
+      {activeTab === 'blog' && (
+        /* BLOG SECTION */
+        <section className="section animate-on-scroll" id="blog">
+          <h2 className="section-title mono">
+            <span className="typewriter-container"><span className="typewriter">Blog</span></span>
+          </h2>
+
+          {selectedArticle === null ? (
+            <div className="animate-on-scroll delay-100">
+              <p className="about-text" style={{ marginBottom: '2rem' }}>
+                Engineering notes and troubleshooting breakdowns from real-world AI system setup and simulation environments.
+              </p>
+              <div className="blog-grid">
+                {blogs.map((blog, idx) => (
+                  <div key={idx} className={`blog-card animate-on-scroll delay-${(idx % 2 === 0 ? 100 : 200)}`}>
+                    <h3 className="blog-title">{blog.title}</h3>
+                    <p className="blog-summary">{blog.summary}</p>
+                    <div className="blog-meta mono text-muted">
+                      <span>{blog.category}</span>
+                      <span className="separator mx-2">|</span>
+                      <span>{blog.date}</span>
+                    </div>
+                    <div className="blog-action" style={{ marginTop: 'auto', paddingTop: '1.5rem' }}>
+                      <button className="btn btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }} onClick={() => setSelectedArticle(blog.id)}>Read Article</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="article-view animate-on-scroll">
+              <button className="btn btn-secondary mb-4" onClick={() => setSelectedArticle(null)} style={{ marginBottom: '2rem', padding: '0.5rem 1rem', fontSize: '0.8rem' }}>
+                &lt; Back to Blog
+              </button>
+
+              {blogs.filter(b => b.id === selectedArticle).map((blog) => (
+                <div key={blog.id} className="article-content terminal-block-alt">
+                  <h2 className="article-title">{blog.title}</h2>
+                  <div className="blog-meta mono text-muted" style={{ marginBottom: '2.5rem', marginTop: '0.5rem' }}>
+                    <span>{blog.category}</span>
+                    <span className="separator mx-2">|</span>
+                    <span>{blog.date}</span>
+                  </div>
+                  <div className="article-body">
+                    {blog.content}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
       )}
 
       {activeTab === 'media' && (
