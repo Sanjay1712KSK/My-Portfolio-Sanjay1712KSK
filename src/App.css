@@ -154,112 +154,34 @@
   }
 }
 
-/* Solar System Elements */
-.solar-system {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100vw;
-  height: 100vh;
-  transform: translate(-50%, -50%) rotateX(60deg);
-  transform-style: preserve-3d;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.sun-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 300px;
-  height: 300px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, rgba(0, 240, 255, 0.1) 40%, transparent 70%);
-  border-radius: 50%;
-  box-shadow: 0 0 100px rgba(138, 43, 226, 0.6), 0 0 200px rgba(0, 240, 255, 0.3);
-  animation: pulseSun 8s infinite alternate;
-}
-
-@keyframes pulseSun {
-  from {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0.8;
-  }
-
-  to {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 1;
-  }
-}
-
-.orbit {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: rotateOrbit linear infinite;
-}
-
-.orbit-1 {
-  width: 600px;
-  height: 600px;
-  animation-duration: 40s;
-  border-color: rgba(0, 240, 255, 0.1);
-}
-
-.orbit-2 {
-  width: 900px;
-  height: 900px;
-  animation-duration: 80s;
-  border-color: rgba(138, 43, 226, 0.1);
-}
-
-.orbit-3 {
-  width: 1400px;
-  height: 1400px;
-  animation-duration: 150s;
-  border-color: rgba(255, 255, 255, 0.03);
-}
-
-.planet {
-  position: absolute;
+/* Distant Galaxy Visual */
+.distant-galaxy {
+  position: fixed;
   top: 0;
-  left: 50%;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 20px currentcolor;
+  right: -5vw;
+  width: 50vw;
+  height: 100vh;
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(138, 43, 226, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 60% 40%, rgba(0, 240, 255, 0.05) 0%, transparent 45%),
+    radial-gradient(ellipse at 70% 60%, rgba(138, 43, 226, 0.04) 0%, transparent 50%);
+  filter: blur(50px);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.7;
+  transform: rotate(-15deg);
+  animation: slowGalaxyPulse 20s infinite alternate ease-in-out;
 }
 
-.planet-1 {
-  width: 12px;
-  height: 12px;
-  background: #00f0ff;
-  color: rgba(0, 240, 255, 0.8);
-}
-
-.planet-2 {
-  width: 24px;
-  height: 24px;
-  background: #8a2be2;
-  color: rgba(138, 43, 226, 0.8);
-}
-
-.planet-3 {
-  width: 16px;
-  height: 16px;
-  background: #ffffff;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-@keyframes rotateOrbit {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
+@keyframes slowGalaxyPulse {
+  0% {
+    transform: rotate(-15deg) scale(1) translateY(0);
+    opacity: 0.6;
   }
 
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
+  100% {
+    transform: rotate(-12deg) scale(1.05) translateY(-20px);
+    opacity: 0.8;
   }
 }
 
@@ -1103,9 +1025,11 @@ h3 {
     width: 100%;
   }
 
-  /* Shrink Solar System for Mobile */
-  .solar-system {
-    transform: translate(-50%, -50%) rotateX(70deg) scale(0.5);
+  /* Shrink Galaxy for Mobile */
+  .distant-galaxy {
+    width: 80vw;
+    right: -20vw;
+    opacity: 0.5;
   }
 
   .project-card,
@@ -1148,8 +1072,10 @@ h3 {
     display: none;
   }
 
-  /* Make sure sun doesn't overflow container width horizontally */
-  .solar-system {
-    transform: translate(-50%, -50%) rotateX(75deg) scale(0.35);
+  /* Galaxy fades further on small screens */
+  .distant-galaxy {
+    width: 100vw;
+    right: -40vw;
+    opacity: 0.3;
   }
 }
