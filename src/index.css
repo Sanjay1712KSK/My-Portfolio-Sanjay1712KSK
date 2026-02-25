@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+  --bg-color: #050505;
+  --bg-secondary: #0a0a0c;
+  --text-main: #f0f0f0;
+  --text-muted: #8a8f98;
+  --accent-cyan: #00f0ff;
+  --accent-blue: #0047ff;
+  --accent-violet: #8a2be2;
+  --glow-cyan: rgba(0, 240, 255, 0.4);
+  --glow-violet: rgba(138, 43, 226, 0.4);
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Base Animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px) translateZ(0);
+  /* GPU acceleration */
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+.delay-100 {
+  transition-delay: 0.1s;
+}
+
+.delay-200 {
+  transition-delay: 0.2s;
+}
+
+.delay-300 {
+  transition-delay: 0.3s;
+}
+
+.blinking-cursor {
+  animation: blink 1s step-end infinite;
+  display: inline-block;
+  vertical-align: bottom;
+  background-color: var(--accent-cyan);
+  width: 10px;
+  height: 1.2em;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.typewriter-container {
+  display: inline-block;
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  border-right: 2px solid transparent;
+  width: 0;
+}
+
+.typewriter-animate {
+  animation: typing 1.5s steps(30, end) forwards, blink-caret .75s step-end infinite;
+  border-right-color: var(--accent-cyan);
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+
+  to {
+    width: 100%
+  }
+}
+
+@keyframes blink-caret {
+
+  from,
+  to {
+    border-color: transparent
+  }
+
+  50% {
+    border-color: var(--accent-cyan);
+  }
+}

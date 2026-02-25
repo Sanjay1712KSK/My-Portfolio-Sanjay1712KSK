@@ -1,0 +1,25 @@
+# Portfolio Redesign Tasks
+
+- [ ] Planning & Design
+  - [/] Analyze current structure and requirements
+  - [ ] Create implementation plan for user review
+- [/] App Structure & Navigation
+  - [/] Implement tab system for "Home" and "Media/Demos"
+- [ ] Hero / Top Section Redesign
+  - [ ] Reduce empty vertical space and change layout to be compact
+  - [ ] Update credentials and positioning statement
+  - [ ] Add View Selected Work and Download Resume buttons
+- [ ] New & Updated Sections
+  - [ ] Update About section content
+  - [ ] Create structured Experience section and move UROP role from hero
+  - [ ] Add Currently Building section
+  - [ ] Add Technical Focus section
+  - [ ] Update Selected Work section items
+  - [ ] Update Tech Stack (Core Technologies) grouped layout
+  - [ ] Update Achievements & Contact section
+- [/] Media Tab
+  - [/] Implement UI for videos and screenshots
+- [/] Styling & Polish
+  - [/] Ensure spacing is consistent, compact, and grid-balanced
+  - [/] Ensure terminal theme and animations are preserved
+- [ ] Verification

@@ -1,0 +1,24 @@
+# Portfolio Website Walkthrough
+
+## Overview
+I have successfully built a professional, interactive portfolio website for you using React, TypeScript, Vite, and Vanilla CSS with a **Glassmorphism** design system, as requested.
+
+## What was built
+- **Glassmorphism Styling**: Implemented a modern, premium dark-themed UI featuring a dynamic gradient background and frosted glass panels (`backdrop-filter: blur()`).
+- **Responsive Layout**: Ensured the portfolio looks great on both desktop and mobile devices.
+- **Data Integration**: Extracted and populated all your details from the provided resume:
+  - **Hero Section**: Includes your role, a brief about, and links to GitHub/LinkedIn/Email. It also sets up a placeholder where you can drop your profile picture.
+  - **Experience & Education**: Highlights your SRM UROP program and your B.Tech details.
+  - **Projects**: Showcases Cattle-Go, Drug MRP Price Prediction, Padayappa Paarvai, and others.
+  - **Skills & Achievements**: Grids out your technical skills and hackathon achievements.
+
+## How to Run it Locally:
+The code has been set up in `s:\Myportfolio`. Simply ensure your Vite dev server is running or run:
+```bash
+cd s:\Myportfolio
+npm run dev
+```
+Then open `http://localhost:5173` in your browser.
+
+> [!TIP]
+> **Profile Picture Setup:** To display your provided profile picture, simply save your image as `profile.png` inside the `public/` folder (`s:\Myportfolio\public\profile.png`). The site is already configured to automatically load it!
