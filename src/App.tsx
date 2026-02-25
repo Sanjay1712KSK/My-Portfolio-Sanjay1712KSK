@@ -152,41 +152,79 @@ function App() {
       title: "Configuring CUDA Toolkit on Ubuntu 22.04 (Jammy Jellyfish) for Deep Learning",
       category: "Systems / GPU / Deep Learning",
       date: "February 2026",
-      summary: "A detailed breakdown of installing and configuring NVIDIA drivers, CUDA Toolkit, cuDNN, and resolving version compatibility issues on Ubuntu Jammy for deep learning workflows.",
+      summary: "Setting up CUDA on Ubuntu 22.04 (Jammy Jellyfish) is not as straightforward as it seems. While official documentation exists, version mismatches between NVIDIA drivers, CUDA Toolkit, cuDNN, and deep learning frameworks can easily break GPU acceleration.",
       content: (
         <>
-          <p className="blog-paragraph text-muted">Setting up CUDA correctly on Ubuntu 22.04 can be challenging due to strict driver compatibility, kernel dependencies, and mismatched library versions. This article documents the complete setup process and the major issues encountered during installation.</p>
+          <h3 className="blog-subtitle">Introduction</h3>
+          <p className="blog-paragraph text-muted">Setting up CUDA on Ubuntu 22.04 (Jammy Jellyfish) is not as straightforward as it seems. While official documentation exists, version mismatches between NVIDIA drivers, CUDA Toolkit, cuDNN, and deep learning frameworks can easily break GPU acceleration.</p>
+          <p className="blog-paragraph text-muted">This article documents the complete setup process and the key issues I encountered while configuring CUDA for deep learning workloads.</p>
 
-          <h3 className="blog-subtitle">Key Steps Covered:</h3>
+          <h3 className="blog-subtitle">System Overview</h3>
           <ul className="blog-list text-muted">
-            <li>Installing correct NVIDIA drivers</li>
-            <li>Verifying GPU detection using <code className="blog-code">nvidia-smi</code></li>
-            <li>Installing compatible CUDA Toolkit version</li>
-            <li>Setting PATH and LD_LIBRARY_PATH variables</li>
-            <li>Installing cuDNN</li>
-            <li>Verifying installation with <code className="blog-code">nvcc --version</code></li>
+            <li><strong>OS:</strong> Ubuntu 22.04 LTS (Jammy Jellyfish)</li>
+            <li><strong>GPU:</strong> NVIDIA GPU</li>
+            <li><strong>Use Case:</strong> PyTorch-based deep learning models</li>
           </ul>
 
-          <h3 className="blog-subtitle">Difficulties Faced:</h3>
+          <h3 className="blog-subtitle">Step 1: Installing NVIDIA Drivers</h3>
+          <p className="blog-paragraph text-muted">First, verify GPU detection:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>lspci | grep -i nvidia</code></pre>
+          <p className="blog-paragraph text-muted">Then install recommended drivers:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>sudo ubuntu-drivers autoinstall</code></pre>
+          <p className="blog-paragraph text-muted">Reboot and confirm:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>nvidia-smi</code></pre>
+          <p className="blog-paragraph text-muted"><strong>Issue Faced:</strong> After a kernel update, the driver module failed to load.</p>
+          <p className="blog-paragraph text-muted"><strong>Resolution:</strong> Reinstalled drivers and ensured correct DKMS module build before rebooting.</p>
+
+          <h3 className="blog-subtitle">Step 2: Installing CUDA Toolkit</h3>
           <ul className="blog-list text-muted">
-            <li>Driver and CUDA version mismatch errors</li>
+            <li>Downloaded compatible CUDA version from NVIDIA’s official archive (important to match driver version).</li>
+            <li>Installed via local deb installer instead of apt repository to avoid dependency conflicts.</li>
+          </ul>
+          <p className="blog-paragraph text-muted">Verified installation:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>nvcc --version</code></pre>
+
+          <h3 className="blog-subtitle">Step 3: Setting Environment Variables</h3>
+          <p className="blog-paragraph text-muted">Added to .bashrc:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>export PATH=/usr/local/cuda/bin:$PATH{'\n'}export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</code></pre>
+          <p className="blog-paragraph text-muted">Reloaded shell:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>source ~/.bashrc</code></pre>
+          <p className="blog-paragraph text-muted"><strong>Issue Faced:</strong> CUDA binaries worked, but PyTorch did not detect GPU.</p>
+          <p className="blog-paragraph text-muted"><strong>Root Cause:</strong> Environment variables were not properly loaded in non-interactive shells.</p>
+          <p className="blog-paragraph text-muted"><strong>Fix:</strong> Ensured variables were exported system-wide and verified using:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>echo $LD_LIBRARY_PATH</code></pre>
+
+          <h3 className="blog-subtitle">Step 4: Installing cuDNN</h3>
+          <ul className="blog-list text-muted">
+            <li>Installed version compatible with installed CUDA version.</li>
+            <li>Manually copied files to CUDA directories:</li>
+          </ul>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>sudo cp cuda/include/cudnn*.h /usr/local/cuda/include{'\n'}sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64</code></pre>
+          <p className="blog-paragraph text-muted">Updated permissions accordingly.</p>
+
+          <h3 className="blog-subtitle">Major Challenges Faced</h3>
+          <ul className="blog-list text-muted">
+            <li>Driver–CUDA version mismatch</li>
+            <li>Broken apt dependencies</li>
             <li>Kernel module conflicts after system updates</li>
-            <li>Broken dependencies while installing via apt</li>
-            <li>Environment variables not recognized after reboot</li>
-            <li>PyTorch not detecting CUDA despite correct installation</li>
+            <li>PyTorch detecting CPU only</li>
+            <li>Inconsistent environment variables</li>
           </ul>
+          <p className="blog-paragraph text-muted">The most critical lesson was verifying the compatibility matrix before installing anything.</p>
 
-          <h3 className="blog-subtitle">Solutions Implemented:</h3>
+          <h3 className="blog-subtitle">Final Verification</h3>
+          <p className="blog-paragraph text-muted">Tested using PyTorch:</p>
+          <pre className="blog-code" style={{ display: 'block', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflowX: 'auto', marginBottom: '1rem' }}><code>import torch{'\n'}print(torch.cuda.is_available()){'\n'}print(torch.cuda.get_device_name(0))</code></pre>
+          <p className="blog-paragraph text-muted">Output confirmed successful GPU detection.</p>
+
+          <h3 className="blog-subtitle">Key Takeaways</h3>
           <ul className="blog-list text-muted">
-            <li>Manual driver reinstallation</li>
-            <li>Cleaning previous CUDA versions completely</li>
-            <li>Verifying compatibility matrix before installation</li>
-            <li>Rebuilding environment variables</li>
-            <li>Testing with <code className="blog-code">torch.cuda.is_available()</code></li>
+            <li>Always verify NVIDIA driver and CUDA compatibility first</li>
+            <li>Avoid mixing apt-based and manual installations</li>
+            <li>Recheck environment variables carefully</li>
+            <li>Test with deep learning framework, not just nvcc</li>
           </ul>
-
-          <h3 className="blog-subtitle">Conclusion:</h3>
-          <p className="blog-paragraph text-muted">Proper version alignment between driver, CUDA Toolkit, cuDNN, and deep learning frameworks is critical. Verifying compatibility before installation prevents most runtime failures.</p>
+          <p className="blog-paragraph text-muted">Proper CUDA setup requires strict version alignment and careful validation at each step.</p>
         </>
       )
     },
