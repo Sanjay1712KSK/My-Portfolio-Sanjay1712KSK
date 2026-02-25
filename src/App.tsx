@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'home' | 'media' | 'resume'>('home');
+  const [selectedArticle, setSelectedArticle] = useState<number | null>(null);
 
 
   useEffect(() => {
@@ -125,6 +126,96 @@ function App() {
     {
       title: "NLH AI x Legal Hackathon – 2nd Runner-Up",
       year: "2025"
+    }
+  ];
+
+  const blogs = [
+    {
+      id: 1,
+      title: "Configuring CUDA Toolkit on Ubuntu 22.04 (Jammy Jellyfish) for Deep Learning",
+      category: "Systems / GPU / Deep Learning",
+      date: "February 2026",
+      summary: "A detailed breakdown of installing and configuring NVIDIA drivers, CUDA Toolkit, cuDNN, and resolving version compatibility issues on Ubuntu Jammy for deep learning workflows.",
+      content: (
+        <>
+          <p className="blog-paragraph text-muted">Setting up CUDA correctly on Ubuntu 22.04 can be challenging due to strict driver compatibility, kernel dependencies, and mismatched library versions. This article documents the complete setup process and the major issues encountered during installation.</p>
+
+          <h3 className="blog-subtitle">Key Steps Covered:</h3>
+          <ul className="blog-list text-muted">
+            <li>Installing correct NVIDIA drivers</li>
+            <li>Verifying GPU detection using <code className="blog-code">nvidia-smi</code></li>
+            <li>Installing compatible CUDA Toolkit version</li>
+            <li>Setting PATH and LD_LIBRARY_PATH variables</li>
+            <li>Installing cuDNN</li>
+            <li>Verifying installation with <code className="blog-code">nvcc --version</code></li>
+          </ul>
+
+          <h3 className="blog-subtitle">Difficulties Faced:</h3>
+          <ul className="blog-list text-muted">
+            <li>Driver and CUDA version mismatch errors</li>
+            <li>Kernel module conflicts after system updates</li>
+            <li>Broken dependencies while installing via apt</li>
+            <li>Environment variables not recognized after reboot</li>
+            <li>PyTorch not detecting CUDA despite correct installation</li>
+          </ul>
+
+          <h3 className="blog-subtitle">Solutions Implemented:</h3>
+          <ul className="blog-list text-muted">
+            <li>Manual driver reinstallation</li>
+            <li>Cleaning previous CUDA versions completely</li>
+            <li>Verifying compatibility matrix before installation</li>
+            <li>Rebuilding environment variables</li>
+            <li>Testing with <code className="blog-code">torch.cuda.is_available()</code></li>
+          </ul>
+
+          <h3 className="blog-subtitle">Conclusion:</h3>
+          <p className="blog-paragraph text-muted">Proper version alignment between driver, CUDA Toolkit, cuDNN, and deep learning frameworks is critical. Verifying compatibility before installation prevents most runtime failures.</p>
+        </>
+      )
+    },
+    {
+      id: 2,
+      title: "Integrating AirSim with Unreal Engine 5 on Windows 11: Setup and Challenges",
+      category: "Simulation / Reinforcement Learning",
+      date: "February 2026",
+      summary: "Step-by-step guide to setting up Microsoft AirSim with Unreal Engine 5 on Windows 11, including common build errors and simulation control issues.",
+      content: (
+        <>
+          <p className="blog-paragraph text-muted">Integrating AirSim with Unreal Engine 5 for reinforcement learning simulations involves careful configuration of Visual Studio, Unreal build tools, and plugin compatibility. This article outlines the setup process and key troubleshooting insights.</p>
+
+          <h3 className="blog-subtitle">Setup Overview:</h3>
+          <ul className="blog-list text-muted">
+            <li>Installing Unreal Engine 5</li>
+            <li>Installing Visual Studio with required C++ build tools</li>
+            <li>Cloning AirSim repository</li>
+            <li>Building AirSim using build scripts</li>
+            <li>Integrating AirSim plugin into Unreal project</li>
+            <li>Configuring settings.json for simulation control</li>
+          </ul>
+
+          <h3 className="blog-subtitle">Difficulties Faced:</h3>
+          <ul className="blog-list text-muted">
+            <li>Visual Studio toolchain mismatch</li>
+            <li>Unreal build errors during plugin compilation</li>
+            <li>Incorrect AirSim settings configuration</li>
+            <li>Drone spawning but no manual control</li>
+            <li>Physics inconsistencies during simulation</li>
+            <li>Plugin not loading due to directory structure errors</li>
+          </ul>
+
+          <h3 className="blog-subtitle">Solutions Implemented:</h3>
+          <ul className="blog-list text-muted">
+            <li>Ensuring correct MSVC and Windows SDK version</li>
+            <li>Rebuilding Unreal project files</li>
+            <li>Verifying AirSim plugin placement</li>
+            <li>Correct input bindings configuration</li>
+            <li>Testing with sample environment before custom scene</li>
+          </ul>
+
+          <h3 className="blog-subtitle">Conclusion:</h3>
+          <p className="blog-paragraph text-muted">Simulation environments require strict toolchain alignment and proper plugin configuration. Testing in incremental stages prevents cascading build errors.</p>
+        </>
+      )
     }
   ];
 
@@ -271,6 +362,57 @@ function App() {
                 </div>
               ))}
             </div>
+          </section>
+
+          {/* BLOG SECTION */}
+          <section className="section" id="blog">
+            <h2 className="section-title mono">
+              <span className="typewriter-container"><span className="typewriter">Blog</span></span>
+            </h2>
+
+            {selectedArticle === null ? (
+              <div className="animate-on-scroll delay-100">
+                <p className="about-text" style={{ marginBottom: '2rem' }}>
+                  Engineering notes and troubleshooting breakdowns from real-world AI system setup and simulation environments.
+                </p>
+                <div className="blog-grid">
+                  {blogs.map((blog, idx) => (
+                    <div key={idx} className={`blog-card animate-on-scroll delay-${(idx % 2 === 0 ? 100 : 200)}`}>
+                      <h3 className="blog-title">{blog.title}</h3>
+                      <p className="blog-summary">{blog.summary}</p>
+                      <div className="blog-meta mono text-muted">
+                        <span>{blog.category}</span>
+                        <span className="separator mx-2">|</span>
+                        <span>{blog.date}</span>
+                      </div>
+                      <div className="blog-action" style={{ marginTop: 'auto', paddingTop: '1.5rem' }}>
+                        <button className="btn btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }} onClick={() => setSelectedArticle(blog.id)}>Read Article</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="article-view animate-on-scroll">
+                <button className="btn btn-secondary mb-4" onClick={() => setSelectedArticle(null)} style={{ marginBottom: '2rem', padding: '0.5rem 1rem', fontSize: '0.8rem' }}>
+                  &lt; Back to Blog
+                </button>
+
+                {blogs.filter(b => b.id === selectedArticle).map((blog) => (
+                  <div key={blog.id} className="article-content terminal-block-alt">
+                    <h2 className="article-title">{blog.title}</h2>
+                    <div className="blog-meta mono text-muted" style={{ marginBottom: '2.5rem', marginTop: '0.5rem' }}>
+                      <span>{blog.category}</span>
+                      <span className="separator mx-2">|</span>
+                      <span>{blog.date}</span>
+                    </div>
+                    <div className="article-body">
+                      {blog.content}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
 
           {/* TECH STACK SECTION */}
