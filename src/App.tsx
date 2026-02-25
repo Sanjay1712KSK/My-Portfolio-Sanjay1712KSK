@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'home' | 'media'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'media' | 'resume'>('home');
 
 
   useEffect(() => {
@@ -143,11 +143,17 @@ function App() {
           className={`tab-btn ${activeTab === 'media' ? 'active' : ''}`}
           onClick={() => setActiveTab('media')}
         >
-          ./media_demos
+          ./project_demo_medias
+        </button>
+        <button
+          className={`tab-btn ${activeTab === 'resume' ? 'active' : ''}`}
+          onClick={() => setActiveTab('resume')}
+        >
+          ./resume_viewer
         </button>
       </nav>
 
-      {activeTab === 'home' ? (
+      {activeTab === 'home' && (
         <>
           {/* HEADER / HERO SECTION */}
           <header className="site-header animate-on-scroll hero-compact">
@@ -324,11 +330,13 @@ function App() {
             </div>
           </section>
         </>
-      ) : (
+      )}
+
+      {activeTab === 'media' && (
         /* MEDIA / DEMOS SECTION */
         <section className="section animate-on-scroll" id="media-demos">
           <h2 className="section-title mono">
-            <span className="typewriter-container"><span className="typewriter">Project Media &amp; Demos</span></span>
+            <span className="typewriter-container"><span className="typewriter">Project Demo Media's</span></span>
           </h2>
 
           <div className="media-grid">
@@ -357,6 +365,39 @@ function App() {
           </div>
         </section>
       )}
+
+      {activeTab === 'resume' && (
+        /* RESUME VIEWER SECTION */
+        <section className="section animate-on-scroll" id="resume-viewer">
+          <h2 className="section-title mono">
+            <span className="typewriter-container"><span className="typewriter">Resume Viewer</span></span>
+          </h2>
+          <div className="resume-container" style={{ marginTop: '2rem' }}>
+            <div className="resume-actions" style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <a href="/resume.pdf" target="_blank" rel="noreferrer" className="btn btn-primary">Open in New Tab</a>
+              <a href="/resume.pdf" download className="btn btn-secondary">Download PDF</a>
+            </div>
+            <div className="resume-wrapper" style={{ width: '100%', height: '80vh', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', overflow: 'hidden', background: 'rgba(0,0,0,0.2)' }}>
+              <iframe
+                src="/resume.pdf"
+                title="Sanjay Kumar S Resume"
+                width="100%"
+                height="100%"
+                style={{ border: 'none' }}
+              >
+                <p>Your browser does not support PDFs. <a href="/resume.pdf">Download the PDF</a>.</p>
+              </iframe>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* FOOTER */}
+      <footer style={{ textAlign: 'center', padding: '2rem 0', marginTop: '4rem', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
+        <p className="mono text-muted" style={{ fontSize: '0.9rem' }}>
+          Sanjay Kumar S all rights reserved 2026
+        </p>
+      </footer>
     </div>
   );
 }
