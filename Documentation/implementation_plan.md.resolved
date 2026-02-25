@@ -1,0 +1,46 @@
+# Portfolio Layout Redesign
+
+The goal is to redesign the portfolio's layout structure to be compact, recruiter-ready, and highly structured while maintaining the existing dark-themed Silicon Valley + terminal aesthetic.
+
+## Proposed Changes
+
+### Top / Hero Section
+- **Reduce vertical space** between the name header and the subtitle.
+- **Update subtitle** to: `AI Systems Engineer | B.Tech CSE (AI & ML) | SRM University, Chennai | CGPA: 9.44`.
+- **Add positioning statement**: `Building AI-driven autonomous and simulation-based systems.` right below the subtitle.
+- **Add buttons**: `[View Selected Work]` and `[Download Resume]` beneath the positioning statement.
+- **Remove** the "Undergraduate Researcher" block from the hero section entirely.
+
+### New & Updated Sections
+- **About**: Update the text to be 3-4 concise lines focusing on AI/ML, RL, computer vision, and building reliable systems.
+- **Experience**: Move the "Undergraduate Researcher" role here with resume-style bullet points.
+- **Currently Building**: Add this new section listing 4 key focus areas (e.g., Simulation-based RL, Reward shaping).
+- **Technical Focus**: Add this new section displaying key areas like RL, Autonomous Systems, Gen AI, Kernel Fundamentals as a grid of tags.
+- **Selected Work**: Keep the project cards but update their content to consist of a 1-line problem statement, 2-3 bullet highlights, tech stack tags, and the GitHub button.
+- **Core Technologies**: Reorganize the tech stack into categorized cards (Programming, AI/ML, Frameworks & Tools, Systems).
+- **Achievements & Contact**: Unchanged content, but ensure alignment matches the new compact style.
+
+### Media & Demos Tab
+- **Implementation**: Introduce a simple React state `activeTab` ('home' | 'media') in [App.tsx](file:///s:/Myportfolio/src/App.tsx).
+- **Tab Navigation**: Add a clean, terminal-styled sticky tab navigation at the top of the page (`[ ./home ] [ ./media_demos ]`).
+- **Media View**: When 'media' is active, render a grid layout for showcasing project demo videos and screenshots.
+
+### CSS Adjustments ([App.css](file:///s:/Myportfolio/src/App.css))
+- Modify `.hero` to remove `min-height: 80vh` and use a tighter, content-fit layout with appropriate padding (`min-height: auto`, reduced padding).
+- Adjust `.name-header`, `.header-subtitle` and paragraph margins to avoid large blank spaces.
+- Create new styles for the Tab Navigation (`.tab-nav`, `.tab-btn`).
+- Create styles for the "Technical Focus" tag grid (`.focus-grid`, `.focus-tag`).
+- Adjust Project Card spacing to fit the new bulleted format cleanly.
+
+## Verification Plan
+
+### Automated Tests
+- N/A (Frontend cosmetic and layout changes in an existing Vite app).
+
+### Manual Verification
+1. Run `npm run dev` and open the local preview.
+2. Verify the Hero section is compact, name and subtitle are grouped together without huge gaps.
+3. Check the spelling and text of the updated About, Experience, Currently Building, and Technical Focus sections.
+4. Verify the Selected Work cards have exact problem statements, bullet highlights, and tech stack tags.
+5. Click between the "Home" and "Media/Demos" tabs and ensure the view correctly conditionally renders.
+6. Verify responsive behavior on mobile resolutions.
