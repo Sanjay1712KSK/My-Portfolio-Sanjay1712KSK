@@ -1,9 +1,17 @@
-# Portfolio Website Implementation Plan
-- [x] Initialize React + Vite project in the workspace
-- [x] Implement Glassmorphism CSS design system
-- [x] Create UI components (Header, Hero, Experience, Projects, Skills, Contact)
-- [x] Populate user data from the resume
-- [x] Refine responsive layout and animations
-- [x] Redesign to AI Startup / Terminal hybrid aesthetic
-- [x] Update content to match specific copy (Sanjay Kumar S header, updated Hero, Experience, Achievements, etc.)
-- [x] Apply Final V4 exact requested copy mapping over layout
+# Portfolio Deep Space Redesign Tasks
+
+- [x] Planning & Design
+  - [x] Analyze current structure and requirements
+  - [x] Create implementation plan for user review
+- [/] Deep Space Animated Background
+  - [/] Implement multi-layered star field via CSS/SVG or lightweight Canvas
+  - [/] Add slow drift animation using GPU-accelerated transforms
+  - [/] Add faint galaxy/nebula glow
+  - [/] Add subtle shooting star effect
+- [ ] Terminal Foreground Design
+  - [ ] Refactor content containers to have a translucent dark background overlay
+  - [ ] Enhance terminal styling (borders, glow effects, monospace mix)
+- [ ] Scroll Interaction
+  - [ ] Ensure sections fade in properly over the deep space background
+  - [ ] Apply subtle parallax shifting to the star field on scroll
+- [ ] Verification
