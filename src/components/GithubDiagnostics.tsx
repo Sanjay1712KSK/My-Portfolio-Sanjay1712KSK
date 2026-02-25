@@ -13,6 +13,7 @@ interface GitHubData {
     currentStreak: number;
     longestStreak: number;
     events: PushEvent[];
+    eventsFailed?: boolean;
     isCached: boolean;
 }
 
@@ -164,17 +165,23 @@ const PulseGraph: React.FC = () => {
 
 const timeSince = (dateStr: string) => {
     const date = new Date(dateStr);
-    const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
-    let interval = seconds / 31536000;
-    if (interval > 1) return Math.floor(interval) + "y ago";
-    interval = seconds / 2592000;
-    if (interval > 1) return Math.floor(interval) + "mo ago";
-    interval = seconds / 86400;
-    if (interval > 1) return Math.floor(interval) + "d ago";
-    interval = seconds / 3600;
-    if (interval > 1) return Math.floor(interval) + "h ago";
-    interval = seconds / 60;
-    if (interval > 1) return Math.floor(interval) + "m ago";
+    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+
+    let interval = Math.floor(seconds / 31536000);
+    if (interval >= 1) return `${interval} year${interval === 1 ? '' : 's'} ago`;
+
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) return `${interval} month${interval === 1 ? '' : 's'} ago`;
+
+    interval = Math.floor(seconds / 86400);
+    if (interval >= 1) return `${interval} day${interval === 1 ? '' : 's'} ago`;
+
+    interval = Math.floor(seconds / 3600);
+    if (interval >= 1) return `${interval} hour${interval === 1 ? '' : 's'} ago`;
+
+    interval = Math.floor(seconds / 60);
+    if (interval >= 1) return `${interval} minute${interval === 1 ? '' : 's'} ago`;
+
     return "just now";
 };
 
@@ -194,17 +201,15 @@ const GithubDiagnostics: React.FC = () => {
                     return;
                 }
 
-                const [userRes, contribRes, eventsRes] = await Promise.all([
+                const [userRes, contribRes] = await Promise.all([
                     fetch(`https://api.github.com/users/${USERNAME}`),
-                    fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}`),
-                    fetch(`https://api.github.com/users/${USERNAME}/events/public`)
+                    fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}`)
                 ]);
 
-                if (!userRes.ok || !contribRes.ok || !eventsRes.ok) throw new Error('API Error');
+                if (!userRes.ok || !contribRes.ok) throw new Error('API Error');
 
                 const userData = await userRes.json();
                 const contribData = await contribRes.json();
-                const eventsData = await eventsRes.json();
 
                 // Contributions parsing
                 const year = new Date().getFullYear();
@@ -227,25 +232,37 @@ const GithubDiagnostics: React.FC = () => {
                     }
                 }
 
-                const pushEvents: PushEvent[] = eventsData
-                    .filter((e: { type: string }) => e.type === 'PushEvent')
-                    .slice(0, 5)
-                    .map((e: { repo: { name: string }, payload: { commits?: unknown[] }, created_at: string }) => {
-                        const repoParts = e.repo.name.split('/');
-                        const repoName = repoParts.length > 1 ? repoParts[1] : e.repo.name;
-                        return {
-                            repo: repoName,
-                            commits: e.payload.commits?.length || 0,
-                            timeStr: timeSince(e.created_at)
-                        };
-                    });
+                let pushEvents: PushEvent[] = [];
+                let eventsFailed = false;
+
+                try {
+                    const eventsRes = await fetch(`https://api.github.com/users/${USERNAME}/events/public`);
+                    if (!eventsRes.ok) throw new Error('Events API Error');
+                    const eventsData = await eventsRes.json();
+
+                    pushEvents = eventsData
+                        .filter((e: any) => e.type === 'PushEvent')
+                        .slice(0, 5)
+                        .map((e: any) => {
+                            const repoParts = e.repo.name.split('/');
+                            const repoName = repoParts.length > 1 ? repoParts[1] : e.repo.name;
+                            return {
+                                repo: repoName,
+                                commits: e.payload?.size || 0,
+                                timeStr: timeSince(e.created_at)
+                            };
+                        });
+                } catch (e) {
+                    eventsFailed = true;
+                }
 
                 const calculatedData: Omit<GitHubData, 'isCached'> = {
                     repos: userData.public_repos,
                     totalContributions,
                     currentStreak,
                     longestStreak,
-                    events: pushEvents
+                    events: pushEvents,
+                    eventsFailed
                 };
 
                 localStorage.setItem(CACHE_KEY, JSON.stringify(calculatedData));
@@ -295,17 +312,20 @@ const GithubDiagnostics: React.FC = () => {
 
             {/* FEED */}
             <div className="gh-feed-container">
-                {data.events.map((ev, i) => (
-                    <div key={i} className="gh-feed-item mono" style={{ animationDelay: `${i * 0.15}s` }}>
-                        <span className="feed-bracket">[</span><span className="feed-repo">{ev.repo}</span><span className="feed-bracket">]</span>
-                        <span className="feed-dash"> — </span>
-                        <span className="feed-action">pushed {ev.commits} commit{ev.commits !== 1 ? 's' : ''}</span>
-                        <span className="feed-dash hide-mobile"> — </span>
-                        <span className="feed-time">{ev.timeStr}</span>
-                    </div>
-                ))}
-                {data.events.length === 0 && (
+                {data.eventsFailed ? (
+                    <div className="gh-feed-item mono" style={{ color: 'var(--text-muted)' }}>Commit activity unavailable.</div>
+                ) : data.events.length === 0 ? (
                     <div className="gh-feed-item mono" style={{ color: 'var(--text-muted)' }}>No recent push events detected.</div>
+                ) : (
+                    data.events.map((ev, i) => (
+                        <div key={i} className="gh-feed-item mono" style={{ animationDelay: `${i * 0.15}s` }}>
+                            <span className="feed-bracket">[ </span><span className="feed-repo">{ev.repo}</span><span className="feed-bracket"> ]</span>
+                            <span className="feed-dash"> — </span>
+                            <span className="feed-action">pushed {ev.commits} commit{ev.commits !== 1 ? 's' : ''}</span>
+                            <span className="feed-dash hide-mobile"> — </span>
+                            <span className="feed-time">{ev.timeStr}</span>
+                        </div>
+                    ))
                 )}
             </div>
 
