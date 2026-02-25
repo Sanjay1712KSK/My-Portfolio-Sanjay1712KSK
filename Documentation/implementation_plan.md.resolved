@@ -1,46 +1,26 @@
-# Portfolio Layout Redesign
+# Deep Space Terminal Redesign Implementation
 
-The goal is to redesign the portfolio's layout structure to be compact, recruiter-ready, and highly structured while maintaining the existing dark-themed Silicon Valley + terminal aesthetic.
+The user wants to enhance the existing dark Silicon Valley + terminal hybrid portfolio with a deep space animated background and a stronger "terminal inner-overlay" feel for the foreground, without changing the core theme, typography, or layout.
 
 ## Proposed Changes
 
-### Top / Hero Section
-- **Reduce vertical space** between the name header and the subtitle.
-- **Update subtitle** to: `AI Systems Engineer | B.Tech CSE (AI & ML) | SRM University, Chennai | CGPA: 9.44`.
-- **Add positioning statement**: `Building AI-driven autonomous and simulation-based systems.` right below the subtitle.
-- **Add buttons**: `[View Selected Work]` and `[Download Resume]` beneath the positioning statement.
-- **Remove** the "Undergraduate Researcher" block from the hero section entirely.
+### Background Implementation (`index.css` & [App.css](file:///s:/Myportfolio/src/App.css))
+- **Starfield Mechanism**: Use a lightweight, purely CSS-driven approach for the background. We can achieve this without heavy JS or Canvas by creating multi-layered pseudo-elements (`::before`, `::after`) on a fixed background container (`.deep-space-bg`).
+- **Layers**: 
+  1. A dark, near-black base tone.
+  2. A faint radial gradient mimicking a distant nebula/galaxy glow.
+  3. 2-3 layers of `box-shadow` stars. Using CSS shadows is very performant.
+- **Animation**: 
+  - Apply slow, linear CSS `@keyframes` that translate the stars upwards (or diagonally) using `transform: translateY(...)`, looping seamlessly to create the drift effect.
+  - Apply a subtle shooting star animation (a thin rotating line with a gradient) that runs rarely (e.g., every 15-30 seconds).
 
-### New & Updated Sections
-- **About**: Update the text to be 3-4 concise lines focusing on AI/ML, RL, computer vision, and building reliable systems.
-- **Experience**: Move the "Undergraduate Researcher" role here with resume-style bullet points.
-- **Currently Building**: Add this new section listing 4 key focus areas (e.g., Simulation-based RL, Reward shaping).
-- **Technical Focus**: Add this new section displaying key areas like RL, Autonomous Systems, Gen AI, Kernel Fundamentals as a grid of tags.
-- **Selected Work**: Keep the project cards but update their content to consist of a 1-line problem statement, 2-3 bullet highlights, tech stack tags, and the GitHub button.
-- **Core Technologies**: Reorganize the tech stack into categorized cards (Programming, AI/ML, Frameworks & Tools, Systems).
-- **Achievements & Contact**: Unchanged content, but ensure alignment matches the new compact style.
+### Foreground Implementation ([App.css](file:///s:/Myportfolio/src/App.css) and [App.tsx](file:///s:/Myportfolio/src/App.tsx))
+- **Terminal Container**: We will make the main `.app-container` or inner section containers act as the translucent "terminal glass" over the space background.
+- **Glass/Terminal Overlay**: Modify `.section` or `.app-container` padding/background. We will likely add a backdrop `background: rgba(10, 10, 15, 0.7)` with `backdrop-filter: blur(8px)` (or a similar very subtle blur) to give it a HUD/terminal feel.
+- **Borders & Glows**: Introduce subtle 1px cyan/green borders around active blocks (like `.terminal-block`, `.blog-card`, `.project-card`) and increase their box-shadow glow slightly on hover or scroll.
+- **Parallax Scroll**: We can implement a very light JS scroll string in [App.tsx](file:///s:/Myportfolio/src/App.tsx) (or purely CSS `background-attachment: fixed` mixed with the animated pseudo elements) to give depth when the user scrolls.
 
-### Media & Demos Tab
-- **Implementation**: Introduce a simple React state `activeTab` ('home' | 'media') in [App.tsx](file:///s:/Myportfolio/src/App.tsx).
-- **Tab Navigation**: Add a clean, terminal-styled sticky tab navigation at the top of the page (`[ ./home ] [ ./media_demos ]`).
-- **Media View**: When 'media' is active, render a grid layout for showcasing project demo videos and screenshots.
-
-### CSS Adjustments ([App.css](file:///s:/Myportfolio/src/App.css))
-- Modify `.hero` to remove `min-height: 80vh` and use a tighter, content-fit layout with appropriate padding (`min-height: auto`, reduced padding).
-- Adjust `.name-header`, `.header-subtitle` and paragraph margins to avoid large blank spaces.
-- Create new styles for the Tab Navigation (`.tab-nav`, `.tab-btn`).
-- Create styles for the "Technical Focus" tag grid (`.focus-grid`, `.focus-tag`).
-- Adjust Project Card spacing to fit the new bulleted format cleanly.
-
-## Verification Plan
-
-### Automated Tests
-- N/A (Frontend cosmetic and layout changes in an existing Vite app).
-
-### Manual Verification
-1. Run `npm run dev` and open the local preview.
-2. Verify the Hero section is compact, name and subtitle are grouped together without huge gaps.
-3. Check the spelling and text of the updated About, Experience, Currently Building, and Technical Focus sections.
-4. Verify the Selected Work cards have exact problem statements, bullet highlights, and tech stack tags.
-5. Click between the "Home" and "Media/Demos" tabs and ensure the view correctly conditionally renders.
-6. Verify responsive behavior on mobile resolutions.
+## Verification
+- Test in the browser to ensure framerates stay at 60 FPS (since we use CSS transforms for animation).
+- Check that the stars feel slow, atmospheric, and not distracting.
+- Ensure the foreground text contrasts properly against the space background due to the terminal overlay.
