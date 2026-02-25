@@ -26,13 +26,14 @@ const JARVISDisplay: React.FC = () => {
         timers.push(setTimeout(() => setBootSequence(3), 2600));
 
         // Typewriter effect for main message
-        let i = 0;
+        let i = -1;
         const typingDelay = 35; // ms per character
         const typingTimer = setTimeout(() => {
             const typeChar = setInterval(() => {
-                setMainText((prev) => prev + fullMessage.charAt(i));
                 i++;
-                if (i === fullMessage.length) {
+                if (i < fullMessage.length) {
+                    setMainText((prev) => prev + fullMessage.charAt(i));
+                } else {
                     clearInterval(typeChar);
                     setBootSequence(4);
                 }
