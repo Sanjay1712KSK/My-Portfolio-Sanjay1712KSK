@@ -301,7 +301,7 @@ function App() {
               <div className="hero-actions" style={{ marginTop: '1.5rem' }}>
                 <a href="#projects" className="btn btn-primary">View Selected Work</a>
                 <button onClick={() => { setActiveTab('blog'); setSelectedArticle(null); window.scrollTo(0, 0); }} className="btn btn-secondary">Read My Blog</button>
-                <a href="/resume.pdf" target="_blank" className="btn btn-secondary">Download Resume</a>
+                <a href="/resume.pdf" download="Sanjay_Kumar_S_Resume.pdf" className="btn btn-secondary">Download Resume</a>
               </div>
 
               <div className="hero-glow"></div>
@@ -555,7 +555,7 @@ function App() {
             <div className="resume-container" style={{ marginTop: '2rem' }}>
               <div className="resume-actions" style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <a href="/resume.pdf" target="_blank" rel="noreferrer" className="btn btn-primary">Open in New Tab</a>
-                <a href="/resume.pdf" download className="btn btn-secondary">Download PDF</a>
+                <a href="/resume.pdf" download="Sanjay_Kumar_S_Resume.pdf" className="btn btn-secondary">Download PDF</a>
               </div>
               <div className="resume-wrapper" style={{ width: '100%', height: '80vh', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', overflow: 'hidden', background: 'rgba(0,0,0,0.2)' }}>
                 <iframe
@@ -565,7 +565,7 @@ function App() {
                   height="100%"
                   style={{ border: 'none' }}
                 >
-                  <p>Your browser does not support PDFs. <a href="/resume.pdf">Download the PDF</a>.</p>
+                  <p>Your browser does not support PDFs. <a href="/resume.pdf" download="Sanjay_Kumar_S_Resume.pdf">Download the PDF</a>.</p>
                 </iframe>
               </div>
             </div>
