@@ -44,10 +44,12 @@ function App() {
       const stars1 = document.querySelector('.stars') as HTMLElement;
       const stars2 = document.querySelector('.stars2') as HTMLElement;
       const stars3 = document.querySelector('.stars3') as HTMLElement;
+      const galaxy = document.querySelector('.distant-galaxy') as HTMLElement;
 
       if (stars1) stars1.style.transform = `translateY(${scrollY * -0.1}px)`;
       if (stars2) stars2.style.transform = `translateY(${scrollY * -0.2}px)`;
       if (stars3) stars3.style.transform = `translateY(${scrollY * -0.3}px)`;
+      if (galaxy) galaxy.style.transform = `translateY(${scrollY * -0.05}px) rotate(-15deg)`;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -243,22 +245,8 @@ function App() {
         <div className="stars3"></div>
         <div className="shooting-star"></div>
 
-        {/* SOLAR SYSTEM GALAXY */}
-        <div className="solar-system">
-          <div className="sun-glow"></div>
-
-          <div className="orbit orbit-1">
-            <div className="planet planet-1"></div>
-          </div>
-
-          <div className="orbit orbit-2">
-            <div className="planet planet-2"></div>
-          </div>
-
-          <div className="orbit orbit-3">
-            <div className="planet planet-3"></div>
-          </div>
-        </div>
+        {/* DISTANT GALAXY BACKGROUND */}
+        <div className="distant-galaxy"></div>
       </div>
 
       <div className="app-container">
