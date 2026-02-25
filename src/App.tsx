@@ -623,10 +623,11 @@ function App() {
           /* GITHUB HUD SECTION */
           <section className="section animate-on-scroll" id="github-hud">
             <h2 className="section-title mono" style={{ marginBottom: '1rem' }}>
-              <span className="typewriter-container"><span className="typewriter">my_github_activity/</span></span>
+              <span className="typewriter-container"><span className="typewriter">~/ my_github_activity</span></span>
             </h2>
-            <div className="mono text-muted" style={{ marginBottom: '2.5rem', fontSize: '0.95rem' }}>
-              Live development diagnostics and contribution metrics.
+            <div className="mono text-muted" style={{ marginBottom: '2.5rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center' }}>
+              <span>AI Development Diagnostics Console</span>
+              <span className="jarvis-cursor" style={{ marginLeft: '6px' }}></span>
             </div>
 
             <GithubDiagnostics />
