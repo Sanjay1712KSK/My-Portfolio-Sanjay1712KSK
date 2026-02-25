@@ -109,32 +109,6 @@ function App() {
     }
   ];
 
-  const mediaDemos = [
-    {
-      title: "Simulation-Based Autonomous Nav",
-      type: "video",
-      src: "https://www.youtube.com/embed/placeholder1", // Replace with real links
-      desc: "UE5 RL Training Environment"
-    },
-    {
-      title: "Cattle-Go UI Flow",
-      type: "video",
-      src: "https://www.youtube.com/embed/placeholder2",
-      desc: "Computer Vision & RAG Advisory Demo"
-    },
-    {
-      title: "Padayappa Paarvai Interaction",
-      type: "image",
-      src: "https://via.placeholder.com/600x400/1e1e1e/00f0ff?text=JSON+Visualizer+Demo",
-      desc: "Interactive JSON Tree UI"
-    },
-    {
-      title: "Drug Price Forecasting",
-      type: "image",
-      src: "https://via.placeholder.com/600x400/1e1e1e/8a2be2?text=Prediction+Model+Output",
-      desc: "Model inference dashboard"
-    }
-  ];
 
   const achievements = [
     {
@@ -595,39 +569,16 @@ function App() {
         )}
 
         {activeTab === 'media' && (
-          /* MEDIA / DEMOS SECTION */
-          <section className="section animate-on-scroll" id="media-demos">
-            <h2 className="section-title mono">
-              <span className="typewriter-container"><span className="typewriter">Project Demo Media's</span></span>
-            </h2>
+          /* MEDIA / DEMOS SECTION (UNDER DEVELOPMENT) */
+          <section className="section animate-on-scroll" id="media-demos" style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '4rem' }}>
+            <div style={{ width: '100%', maxWidth: '800px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+              <h2 className="mono" style={{ color: 'var(--accent-blue)', opacity: 0.8, fontSize: '1rem', letterSpacing: '1px', marginBottom: '2rem' }}>
+                <span className="typewriter-container"><span className="typewriter">project-demo-media/</span></span>
+              </h2>
 
-            <div style={{ marginBottom: '3rem', width: '100%', maxWidth: '800px', margin: '0 auto 3rem auto' }}>
-              <JARVISDisplay />
-            </div>
-
-            <div className="media-grid">
-              {mediaDemos.map((media, idx) => (
-                <div key={idx} className={`media-card animate-on-scroll delay-${(idx % 2 === 0 ? 100 : 200)}`}>
-                  <div className="media-wrapper">
-                    {media.type === 'video' ? (
-                      <iframe
-                        src={media.src}
-                        title={media.title}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="media-content"
-                      ></iframe>
-                    ) : (
-                      <img src={media.src} alt={media.title} className="media-content" />
-                    )}
-                  </div>
-                  <div className="media-info">
-                    <h3 className="media-title mono">{media.title}</h3>
-                    <p className="media-desc text-muted">{media.desc}</p>
-                  </div>
-                </div>
-              ))}
+              <div style={{ width: '100%', margin: '0 auto', boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)' }}>
+                <JARVISDisplay />
+              </div>
             </div>
           </section>
         )}
