@@ -13,5 +13,9 @@
   - [x] Enhance terminal styling (borders, glow effects, monospace mix)
 - [x] Scroll Interaction
   - [x] Ensure sections fade in properly over the deep space background
-  - [x] Apply subtle parallax shifting to the star field on scroll
-- [x] Verification
+  - [x] Verification
+- [ ] Galaxy & Solar System Background
+  - [ ] Add a subtle, realistic CSS/SVG solar system or galaxy backdrop
+  - [ ] Make sure it is animated but mild, fitting the terminal theme
+- [ ] Mobile Responsiveness
+  - [ ] Tweak padding, typography scaling, and flex layouts for smaller screens
