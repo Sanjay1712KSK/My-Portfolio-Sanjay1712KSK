@@ -242,6 +242,23 @@ function App() {
         <div className="stars2"></div>
         <div className="stars3"></div>
         <div className="shooting-star"></div>
+
+        {/* SOLAR SYSTEM GALAXY */}
+        <div className="solar-system">
+          <div className="sun-glow"></div>
+
+          <div className="orbit orbit-1">
+            <div className="planet planet-1"></div>
+          </div>
+
+          <div className="orbit orbit-2">
+            <div className="planet planet-2"></div>
+          </div>
+
+          <div className="orbit orbit-3">
+            <div className="planet planet-3"></div>
+          </div>
+        </div>
       </div>
 
       <div className="app-container">
