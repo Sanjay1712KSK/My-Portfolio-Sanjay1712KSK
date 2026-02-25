@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import JARVISDisplay from './components/JARVISDisplay';
+import GithubDiagnostics from './components/GithubDiagnostics';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'home' | 'media' | 'resume' | 'blog'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'media' | 'resume' | 'blog' | 'github'>('home');
   const [selectedArticle, setSelectedArticle] = useState<number | null>(null);
 
 
@@ -328,6 +329,12 @@ function App() {
             ./project_demo_medias
           </button>
           <button
+            className={`tab-btn ${activeTab === 'github' ? 'active' : ''}`}
+            onClick={() => setActiveTab('github')}
+          >
+            ./my_github_activity
+          </button>
+          <button
             className={`tab-btn ${activeTab === 'resume' ? 'active' : ''}`}
             onClick={() => setActiveTab('resume')}
           >
@@ -609,6 +616,20 @@ function App() {
                 </iframe>
               </div>
             </div>
+          </section>
+        )}
+
+        {activeTab === 'github' && (
+          /* GITHUB HUD SECTION */
+          <section className="section animate-on-scroll" id="github-hud">
+            <h2 className="section-title mono" style={{ marginBottom: '1rem' }}>
+              <span className="typewriter-container"><span className="typewriter">my_github_activity/</span></span>
+            </h2>
+            <div className="mono text-muted" style={{ marginBottom: '2.5rem', fontSize: '0.95rem' }}>
+              Live development diagnostics and contribution metrics.
+            </div>
+
+            <GithubDiagnostics />
           </section>
         )}
 
