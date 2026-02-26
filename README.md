@@ -55,8 +55,7 @@ public/
   vite.svg
 ```
 
-## Notes
-- Resume links currently point to `/resume.pdf`. Add `public/resume.pdf` if you want the resume viewer/download buttons to work in deployment.
+
 
 ## Contact
 - Email: `sanjayksk1712@gmail.com`
